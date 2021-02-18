@@ -1,0 +1,62 @@
+mport java.util.*;
+import usefulClasses.Logger;
+public class Main {
+
+    static Scanner in = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        Logger logger = Logger.getInstance();
+        System.out.println(logger.toString());
+        logger = Logger.getInstance();
+        System.out.println(logger.toString());
+
+        System.out.println();
+        logger.setLogLevel(Logger.LogLevels.ALL);
+
+        logger.fatal("fatal");
+        logger.error("err");
+        logger.info("info");
+        logger.tag("tag");
+
+        System.out.println();
+        logger.setLogLevel(Logger.LogLevels.DEBUG);
+
+        logger.fatal("fatal");
+        logger.error("err");
+        logger.info("info");
+        logger.tag("tag");
+
+        System.out.println();
+        logger.setLogLevel(Logger.LogLevels.INFO);
+
+        logger.fatal("fatal");
+        logger.error("err");
+        logger.info("info");
+        logger.tag("tag");
+
+        System.out.println();
+        logger.setLogLevel(Logger.LogLevels.ERROR);
+
+        logger.fatal("fatal");
+        logger.error("err");
+        logger.info("info");
+        logger.tag("tag");
+
+        System.out.println();
+        logger.setLogLevel(Logger.LogLevels.FATAL);
+
+        logger.fatal("fatal");
+        logger.error("err");
+        logger.info("info");
+        logger.tag("tag");
+
+        System.out.println();
+        logger.setLogLevel(Logger.LogLevels.TAG);
+
+        logger.fatal("fatal");
+        logger.error("err");
+        logger.info("info");
+        logger.tag("tag");
+    }
+
+}
