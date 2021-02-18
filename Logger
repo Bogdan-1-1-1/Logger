@@ -1,15 +1,6 @@
 package usefulClasses;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class Logger {
-
-    private static final String ANSI_RESET = "\u001B[0m";
-    private static final String ANSI_RED = "\u001B[31m";
-    private static final String ANSI_GREEN = "\u001B[32m";
-    private static final String ANSI_PURPLE = "\u001B[35m";
-    private static final String ANSI_WHITE = "\u001B[37m";
 
     private static Logger instance;             //реализуем паттерн Singleton
     public static Logger getInstance() {        //
@@ -20,41 +11,30 @@ public class Logger {
     }
     private Logger() { }
 
-    private String[] arr = {"ALL","TAG", "INFO", "DEBUG", "ERROR", "FATAL"};
-    private ArrayList<String> logLevels = new ArrayList<>(Arrays.asList(arr));
+    public static enum LogLevels  {ALL, DEBUG , INFO, TAG, ERROR, FATAL}
+    LogLevels logLevel = LogLevels.ALL;
 
     private void log(String tag, String message) {
-        String logLevel = "ALL";
-        if(logLevels.contains(tag)) {
-            logLevel = tag;
-        }
-        System.out.println(logLevel +": ["+ message + "]");
+        System.out.println(tag +": ["+ message + "]");
     }
 
     public void error(String message) {
-        log("ERROR", ANSI_RED + message + ANSI_RESET);
+        if(logLevel != LogLevels.TAG && logLevel != LogLevels.FATAL)
+            log("ERROR", message);
     }
     public void info(String message) {
-        log("INFO", message);
-        log("ERROR", ANSI_RED + message + ANSI_RESET);
-    }
-    public void debug(String message) {
-        log("INFO", message);
-        log("DEBUG", ANSI_GREEN + message + ANSI_RESET);
-        log("ERROR", ANSI_RED + message + ANSI_RESET);
-    }
-    public void all(String message) {
-        log("TAG", ANSI_WHITE + message + ANSI_RESET);
-        log("INFO", message);
-        log("DEBUG", ANSI_GREEN + message + ANSI_RESET);
-        log("ERROR",ANSI_RED + message + ANSI_RESET);
-        log("FATAL", ANSI_PURPLE + message + ANSI_RESET);
+        if(logLevel == LogLevels.ALL || logLevel == LogLevels.DEBUG || logLevel == LogLevels.INFO)
+            log("INFO", message);
     }
     public void fatal(String message) {
-        log("ERROR",ANSI_RED + message + ANSI_RESET);
-        log("FATAL", ANSI_PURPLE + message + ANSI_RESET);
+        if(logLevel != LogLevels.TAG && logLevel != LogLevels.ERROR && logLevel != LogLevels.INFO)
+            log("FATAL",  message );
     }
     public void tag(String message) {
-        log("TAG", ANSI_WHITE + message + ANSI_RESET);
+        if(logLevel == LogLevels.TAG || logLevel == LogLevels.ALL)
+        log("TAG", message );
+    }
+    public void setLogLevel(LogLevels logLevel) {
+        this.logLevel = logLevel;
     }
 }
